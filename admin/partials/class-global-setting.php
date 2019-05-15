@@ -17,7 +17,7 @@ class GlobalSettings
     
         wp_enqueue_script('jquery');
         wp_enqueue_media();
-        wp_enqueue_script('jquery-ui-core');
+        wp_enqueue_script('jquery-ui');
         wp_register_script('jquery-ui', plugins_url('js/jquery-ui.js', dirname(__FILE__)), array('jquery'));
         wp_enqueue_script('jquery-ui');
         wp_register_script('uploader', plugins_url('js/uploader.js', dirname(__FILE__)), array('jquery','jquery-ui'));

@@ -1,11 +1,12 @@
 jQuery(document).ready(function($){
+
+    /** global: wp */
        
 	var custom_uploader;
 
     jQuery('.wp_slide_image_upload').click(function(e) {
 
-    var _id = jQuery( this ).attr( 'data-count' );
-	var attachment_ids = null;
+    var attachment_ids = null;
     e.preventDefault();
 
     //Extend the wp.media object
@@ -88,10 +89,10 @@ jQuery(document).ready(function($){
     });
 
 
-    jQuery(document).on( 'click', '.delete_dx_image', function(e) {
+    jQuery(document).on( 'click', '.delete_dx_image', function() {
             //Get info
             var info = jQuery(this).parent().parent();
-       info.remove();
+            info.remove();
         });
     
 });
