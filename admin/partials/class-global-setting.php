@@ -17,10 +17,9 @@ class GlobalSettings
     
         wp_enqueue_script('jquery');
         wp_enqueue_media();
-        wp_enqueue_script('jquery-ui');
-        wp_register_script('jquery-ui', plugins_url('js/jquery-ui.js', dirname(__FILE__)), array('jquery'));
-        wp_enqueue_script('jquery-ui');
-        wp_register_script('uploader', plugins_url('js/uploader.js', dirname(__FILE__)), array('jquery','jquery-ui'));
+        wp_enqueue_script('jquery-ui-core');
+        wp_enqueue_script('jquery-ui-sortable');
+        wp_register_script('uploader', plugins_url('js/uploader.js', dirname(__FILE__)), array('jquery','jquery-ui-core','jquery-ui-sortable'));
         wp_enqueue_script('uploader');
         wp_localize_script('uploader', 'uploader_obj', array('ajax_url' => admin_url('admin-ajax.php')));
         wp_enqueue_style('slideshow', plugins_url('css/ultimateslideshow.css', dirname(__FILE__)));
