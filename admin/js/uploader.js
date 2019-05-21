@@ -38,6 +38,7 @@ jQuery(document).ready(function($){
                         if (gallery.find('ul.gallery_images').length < 1){
                             gallery.append(
                                 '<ul id="sortable1" class="gallery_images connectedSortable">'+
+                                '<div class="dx-eig-images sortable ui-sortable"></div>'+
                                 '<div class="dx-eig-clear"></div>'+
                                 '</ul>'
                             );
@@ -74,18 +75,21 @@ jQuery(document).ready(function($){
             ids.push(id);
             
         });
+
         $.ajax({
-            url: uploader_obj.ajax_url,
-            method: 'POST',
-            data: {
-                action:'saveimages',
-                ids: ids
-            },
-            success: function(response){
-                alert(response);
-                window.location.reload();
-            }
-        });
+                url: uploader_obj.ajax_url,
+                method: 'POST',
+                data: {
+                    action:'saveimages',
+                    ids: ids
+                },
+                success: function(response){
+                    alert(response);
+                    window.location.reload();
+                }
+            });
+        
+        
     });
 
 

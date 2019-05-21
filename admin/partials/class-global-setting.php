@@ -5,14 +5,14 @@ class GlobalSettings
 {
     public function __construct()
     {
-        add_action('admin_menu', array($this, 'wdmAddMenu'));
-        add_action('admin_enqueue_scripts', array($this, 'wdmEnqueueCallback'), 10, 1);
+        add_action('admin_menu', array($this, 'addMenu'));
+        add_action('admin_enqueue_scripts', array($this, 'enqueueCallback'), 10, 1);
 
         add_action('wp_ajax_saveimages', array($this, 'saveimagesClbk'));
         add_action('wp_ajax_nopriv_saveimages', array($this, 'saveimagesClbk'));
     }
 
-    public function wdmEnqueueCallback()
+    public function enqueueCallback()
     {
     
         wp_enqueue_script('jquery');
@@ -28,7 +28,7 @@ class GlobalSettings
     /**
      * This adds menu in navigation bar.
      */
-    public function wdmAddMenu()
+    public function addMenu()
     {
         add_menu_page(
             __('Ultimate Slideshow', 'ultimate-slideshow'),
@@ -77,10 +77,7 @@ class GlobalSettings
                 }
                 ?>
             </div>
-
-
-
-    </div>
+</div>
 
 
         <?php
@@ -94,7 +91,8 @@ class GlobalSettings
             update_option('my_slideshow_images', array_unique($ids));
             _e('Images Saved Sucessfully', 'ultimate-slideshow');
         } else {
-            _e('Please Select the images', 'ultimate-slideshow');
+            update_option('my_slideshow_images', '');
+            _e('No Images Found', 'ultimate-slideshow');
         }
         wp_die();
     }

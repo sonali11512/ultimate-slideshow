@@ -3,7 +3,7 @@
  * Plugin Name: Ultimate Slideshow
  * Description: This plugin is used to display slideshow.
  * Author: Sonali
- * Text Domain: wp-slide
+ * Text Domain: ultimate-slideshow
  * Version: 1.0.0.
  */
 
