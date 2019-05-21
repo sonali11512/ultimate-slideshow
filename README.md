@@ -8,7 +8,7 @@ You can find the link to demo [here](http://13.127.28.130)
 
 ##  Assignment-2a: WordPress-Slideshow Plugin 
 
-* Tested up to: 4.8
+* Tested up to: 5.2
 
 ## Description ##
 
