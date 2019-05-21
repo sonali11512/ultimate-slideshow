@@ -88,6 +88,7 @@ class GlobalSettings
 
     public function saveimagesClbk()
     {
+
         if (isset($_POST['ids']) && !empty($_POST['ids'])) {
             $ids = $_POST['ids'];
             update_option('my_slideshow_images', array_unique($ids));
@@ -95,6 +96,6 @@ class GlobalSettings
         } else {
             _e('Please Select the images', 'ultimate-slideshow');
         }
-        die();
+        wp_die();
     }
 }
