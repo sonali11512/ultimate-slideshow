@@ -1,23 +1,26 @@
 <?php
 /**
- * The plugin main file
+ * Ultimate Slideshow
  *
- * This file is read by WordPress to include files of admin and public area
- *
- * @package    WordPress
- * @subpackage Ultimate_Slideshow
- * @author     sonali agrawal
- * @license    https://www.gnu.org/licenses/gpl-3.0.txt GNU/GPLv
- * @link    https://github.com/sonali11512/ultimate-slideshow
+ * @package     Ultimate_Slideshow
+ * @author      sonali agrawal
+ * @copyright   2019 sonali agrawal
+ * @license     GPL-2.0+
  *
  * @wordpress-plugin
  * Plugin Name: Ultimate Slideshow
- * Description: This plugin is used to display slideshow.
- * Author: Sonali
+ * Plugin URI:  https://github.com/sonali11512/ultimate-slideshow
+ * Description: This plugin displays the slideshow in frontend.
+ * Version:     1.0.0
+ * Author:      sonali agrawal
  * Text Domain: ultimate-slideshow
- * Version: 1.0.0.
+ * License:     GPL-2.0+
+ * License URI: http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
+/*
+*Includes admin and public main files
+*/
 require_once plugin_dir_path( __FILE__ ) . '/admin/class-ultimate-slideshow-admin.php';
 require_once plugin_dir_path( __FILE__ ) . '/public/class-ultimate-slideshow-public.php';
 
