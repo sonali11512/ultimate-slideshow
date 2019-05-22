@@ -17,7 +17,6 @@
 	<rule ref="PEAR.NamingConventions.ValidClassName.Invalid">
 		<severity>0</severity>
 	</rule>
-	<exclude-pattern>*/tests/*</exclude-pattern>
 	<exclude-pattern>index.php</exclude-pattern>
 	<exclude-pattern>*/vendor/*</exclude-pattern>
 </ruleset>

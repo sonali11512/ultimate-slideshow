@@ -44,7 +44,7 @@ class PluginAdminTest extends WP_UnitTestCase {
 	 * Test to check if plugin has been initializes.
 	 */
 	public function test_plugin_initialization() {
-		$this->assertFalse( null == $this->admin );
+		$this->assertFalse( null === $this->admin );
 	}
 
 	/**
@@ -74,6 +74,9 @@ class PluginAdminTest extends WP_UnitTestCase {
 
 	/**
 	 * Create attachment.
+	 *
+	 * @param type $upload uploaded file.
+	 * @param type $parent_post_id Optional. parent post id. Default.
 	 */
 	public function _make_attachment( $upload, $parent_post_id = 0 ) {
 		$type = '';
@@ -104,14 +107,8 @@ class PluginAdminTest extends WP_UnitTestCase {
 	 * Test to check admin menu.
 	 */
 	public function test_admin_menu() {
-		 $this->admin->add_menu();
+		$this->admin->add_menu();
 		$this->assertNotEmpty( menu_page_url( 'globalsettings' ) );
 	}
 
-	/**
-	 * Tear Down function
-	 */
-	public function tearDown() {
-		parent::tearDown();
-	}
 }

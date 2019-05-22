@@ -9,19 +9,26 @@
  * @subpackage Ultimate_Slideshow/test
  */
 
- /**
-  * The frontend-specific test functionality of the plugin.
-  *
-  * @package    Ultimate_Slideshow
-  * @subpackage Ultimate_Slideshow/test
-  * @author     Sonali Agrawal <sonali.1215@gmail.com>
-  */
+/**
+ * The frontend-specific test functionality of the plugin.
+ *
+ * @package    Ultimate_Slideshow
+ * @subpackage Ultimate_Slideshow/test
+ * @author     Sonali Agrawal <sonali.1215@gmail.com>
+ */
 class PluginPublicTest extends WP_UnitTestCase {
 
-
-	// private $frontend;
+	/**
+	 * Stores array
+	 *
+	 * @access   protected
+	 * @var      Ultimate_Slideshow_Display $shortcode
+	 */
 	protected $shortcodes = array( 'myslideshow' );
 
+	/**
+	 * Creates object of class and does setup.
+	 */
 	public function setUp() {
 		parent::setUp();
 
@@ -42,6 +49,9 @@ class PluginPublicTest extends WP_UnitTestCase {
 		$this->tagname = null;
 	}
 
+	/**
+	 * Creates post for test.
+	 */
 	private function create_posts() {
 		$args                 = array(
 			'post_name'    => 'parent test page',
@@ -65,20 +75,33 @@ class PluginPublicTest extends WP_UnitTestCase {
 		$this->child_post_id = $post_id;
 	}
 
+	/**
+	 * Test shortcode.
+	 *
+	 * @param type $atts attributes of shortcode.
+	 * @param type $content Optional. shortcode content. Default.
+	 * @param type $tagname Optional. slug of shotcode. Default.
+	 */
 	function _shortcode_myslideshow( $atts, $content = null, $tagname = null ) {
 		$this->atts    = $atts;
 		$this->content = $content;
 		$this->tagname = $tagname;
 	}
 
+	/**
+	 * Test shortcode atts.
+	 */
 	public function test_noatts() {
-		 do_shortcode( '[myslideshow /]' );
+		do_shortcode( '[myslideshow /]' );
 		$this->assertEmpty( '', $this->atts );
 		$this->assertSame( 'myslideshow', $this->tagname );
 	}
 
+	/**
+	 * Test to check enqueue scripts.
+	 */
 	public function test_enqueue_scripts_callback() {
-		 // if shortcode exists
+		// if shortcode exists.
 		$this->setUp();
 		$this->frontend->enqueue_scripts_callback();
 		$this->assertTrue( wp_style_is( 'slickcss', 'registered' ) );
