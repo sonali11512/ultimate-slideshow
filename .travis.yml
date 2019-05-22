@@ -54,6 +54,5 @@ script:
     fi
   - |
     if [[ "$WP_TRAVISCI" == "phpcs" ]] ; then
-      phpcs --config-set installed_paths $HOME/.phpcs.xml.dist
       phpcs --standard=phpcs.xml.dist
     fi
