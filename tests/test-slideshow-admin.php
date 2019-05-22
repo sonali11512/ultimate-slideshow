@@ -1,6 +1,6 @@
 <?php
 /**
- * Contains test for Ultimate_Slideshow_Admin class
+ * Contains test for PluginAdminTest class
  *
  * @link       https://github.com/sonali11512/ultimate-slideshow
  * @since      1.0.0
@@ -9,98 +9,109 @@
  * @subpackage Ultimate_Slideshow/test
  */
 
- /**
-  * The admin-specific test functionality of the plugin.
-  *
-  * @package    Ultimate_Slideshow
-  * @subpackage Ultimate_Slideshow/test
-  * @author     Sonali Agrawal <sonali.1215@gmail.com>
-  */
-class PluginAdminTest extends WP_UnitTestCase
-{
+/**
+ * PluginAdminTest Class Doc Comment
+ *
+ * @category Class
+ * @package  WordPress
+ * @subpackage  PluginAdminTest
+ * @author    sonali agrawal
+ * @license  https://www.gnu.org/licenses/gpl-3.0.txt GNU/GPLv
+ * @link     https://github.com/sonali11512/ultimate-slideshow
+ */
+class PluginAdminTest extends WP_UnitTestCase {
 
-    /**
-     * Stores current class instance
-     *
-     * @access   private
-     * @var      Ultimate_Slideshow_Admin $admin
-     */
-    private $admin;
 
-    /**
-    * Initialize the test and set its properties.
-    */
-    public function setUp()
-    {
-        parent::setUp();
-        require_once plugin_dir_path((dirname(__FILE__))).'admin/partials/class-global-setting.php';
-        $this->admin = new Wpslide\GlobalSettings();
-        wp_set_current_user(1);
-    }
+	/**
+	 * Stores current class instance
+	 *
+	 * @access   private
+	 * @var      Ultimate_Slideshow_Admin $admin
+	 */
+	private $admin;
 
-    /**
-    * Test to check if plugin has been initializes.
-    */
-    public function test_plugin_initialization()
-    {
-        $this->assertFalse(null == $this->admin);
-    }
+	/**
+	 * Initialize the test and set its properties.
+	 */
+	public function setUp() {
+		parent::setUp();
+		require_once plugin_dir_path( ( dirname( __FILE__ ) ) ) . 'admin/partials/class-globalsettings.php';
+		$this->admin = new Wpslide\GlobalSettings();
+		wp_set_current_user( 1 );
+	}
 
-    public function test_setup_for_admin()
-    {
-        global $current_screen;
-        $screen = WP_Screen::get('admin_init');
-        $current_screen = $screen;
-    }
-    
-    public function test_enqueueCallback()
-    {
-        $this->admin->enqueueCallback();
-        $this->assertTrue(wp_script_is('jquery', 'enqueued'));
-        $this->assertTrue(wp_script_is('jquery-ui-core', 'enqueued'));
-        $this->assertTrue(wp_script_is('jquery-ui-sortable', 'enqueued'));
+	/**
+	 * Test to check if plugin has been initializes.
+	 */
+	public function test_plugin_initialization() {
+		$this->assertFalse( null == $this->admin );
+	}
 
-        $this->assertTrue(wp_style_is('slideshow', 'registered'));
-        $this->assertTrue(wp_script_is('uploader', 'registered'));
-        
-        $this->assertTrue(wp_style_is('slideshow', 'enqueued'));
-        $this->assertTrue(wp_script_is('uploader', 'enqueued'));
-    }
+	/**
+	 * Test setup for admin.
+	 */
+	public function test_setup_for_admin() {
+		global $current_screen;
+		$screen         = WP_Screen::get( 'admin_init' );
+		$current_screen = $screen;
+	}
 
-    public function _make_attachment($upload, $parent_post_id = 0)
-    {
-        $type = '';
-        if (!empty($upload['type'])) {
-            $type = $upload['type'];
-        } else {
-            $mime = wp_check_filetype($upload['file']);
-            if ($mime) {
-                $type = $mime['type'];
-            }
-        }
+	/**
+	 * Test to check enqueue scripts.
+	 */
+	public function test_enqueue_callback() {
+		$this->admin->enqueue_callback();
+		$this->assertTrue( wp_script_is( 'jquery', 'enqueued' ) );
+		$this->assertTrue( wp_script_is( 'jquery-ui-core', 'enqueued' ) );
+		$this->assertTrue( wp_script_is( 'jquery-ui-sortable', 'enqueued' ) );
 
-        $attachment = array(
-            'post_title' => basename($upload['file']),
-            'post_content' => '',
-            'post_type' => 'attachment',
-            'post_mime_type' => $type,
-            'guid' => $upload[ 'url' ],
-        );
+		$this->assertTrue( wp_style_is( 'slideshow', 'registered' ) );
+		$this->assertTrue( wp_script_is( 'uploader', 'registered' ) );
 
-        $id = wp_insert_attachment($attachment, $upload[ 'file' ]);
-        wp_update_attachment_metadata($id, wp_generate_attachment_metadata($id, $upload['file']));
+		$this->assertTrue( wp_style_is( 'slideshow', 'enqueued' ) );
+		$this->assertTrue( wp_script_is( 'uploader', 'enqueued' ) );
+	}
 
-        return $this->ids[] = $id;
-    }
+	/**
+	 * Create attachment.
+	 */
+	public function _make_attachment( $upload, $parent_post_id = 0 ) {
+		$type = '';
+		if ( ! empty( $upload['type'] ) ) {
+			$type = $upload['type'];
+		} else {
+			$mime = wp_check_filetype( $upload['file'] );
+			if ( $mime ) {
+				$type = $mime['type'];
+			}
+		}
 
-    public function test_admin_menu()
-    {
-        $this->admin->addMenu();
-        $this->assertNotEmpty(menu_page_url('globalsettings'));
-    }
+		$attachment = array(
+			'post_title'     => basename( $upload['file'] ),
+			'post_content'   => '',
+			'post_type'      => 'attachment',
+			'post_mime_type' => $type,
+			'guid'           => $upload['url'],
+		);
 
-    public function tearDown()
-    {
-        parent::tearDown();
-    }
+		$id = wp_insert_attachment( $attachment, $upload['file'] );
+		wp_update_attachment_metadata( $id, wp_generate_attachment_metadata( $id, $upload['file'] ) );
+
+		return $this->ids[] = $id;
+	}
+
+	/**
+	 * Test to check admin menu.
+	 */
+	public function test_admin_menu() {
+		 $this->admin->add_menu();
+		$this->assertNotEmpty( menu_page_url( 'globalsettings' ) );
+	}
+
+	/**
+	 * Tear Down function
+	 */
+	public function tearDown() {
+		parent::tearDown();
+	}
 }

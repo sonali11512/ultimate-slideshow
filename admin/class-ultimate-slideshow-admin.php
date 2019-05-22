@@ -1,3 +1,3 @@
 <?php
-require_once 'partials/class-global-setting.php';
+require_once 'partials/class-globalsettings.php';
 new Wpslide\GlobalSettings();
