@@ -99,7 +99,7 @@ class PluginAdminTest extends WP_UnitTestCase {
 
 		$id = wp_insert_attachment( $attachment, $upload['file'] );
 		wp_update_attachment_metadata( $id, wp_generate_attachment_metadata( $id, $upload['file'] ) );
-        $this->ids[] = $id;
+		$this->ids[] = $id;
 		return $this->ids;
 	}
 
