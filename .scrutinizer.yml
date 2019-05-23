@@ -4,10 +4,6 @@ excluded_paths:
     - 'public/js/*'
     - 'public/css/*'
 
-tools:
-php_code_sniffer:
-    config:
-        standard: WordPress
 checks:
     php: true
 build:
