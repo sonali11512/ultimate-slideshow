@@ -1,13 +1,26 @@
 jQuery(document).ready(function($){
 
     /** global: wp */
+
+
+    jQuery(function() {
+            jQuery('.repeat').each(function() {
+                jQuery(this).repeatable_fields({
+                    wrapper: '.repeat_container',
+                    container: '.repeat_body'
+                });
+            });
+    });
+
        
 	var custom_uploader;
-
-    jQuery('.wp_slide_image_upload').click(function(e) {
-
+    
+    jQuery(document).on( 'click', '.wp_slide_image_upload', function(e) {
+    // jQuery('.wp_slide_image_upload').on('click',function(e) {
+    
+    var _id = jQuery( this ).attr( 'data-count' );
     var attachment_ids = null;
-    e.preventDefault();
+    //e.preventDefault();
 
     //Extend the wp.media object
     custom_uploader = wp.media.frames.file_frame = wp.media({
@@ -29,7 +42,8 @@ jQuery(document).ready(function($){
                     if ( attachment.id ) {
                         attachment_ids = attachment_ids ? attachment_ids + "," + attachment.id : attachment.id;
 
-                        var gallery = jQuery('#gallery');
+                        var gallery = jQuery('#gallery-'+ _id +'');
+                        // console.log(gallery);
 
                         if (gallery.find('p.no-images-message') && gallery.find('p.no-images-message').css('display') === 'block'){
                             gallery.find('p.no-images-message').css('display', 'none');
@@ -65,23 +79,44 @@ jQuery(document).ready(function($){
     
     jQuery(".sortable").sortable();
 
-    $('#uploader .save_btn').click(function(e){
+    $('.save_btn').click(function(e){
 
-        e.preventDefault();
-        var listItems = $("#sortable1 li");
+        //e.preventDefault();
+        // alert('hi');
         var ids = [];
-        listItems.each(function(idx, li) {
-            var id = $(li).data('attachment_id');
-            ids.push(id);
-            
+        var slideshows = [];
+
+        var galleries = $('.dx-eig-gallery-row-content');
+        
+        galleries.each(function(idx, div) {
+            $this = $(this);
+            var gallery_name = $this.data('gallery-name');
+            var listItems = $this.find(".gallery_images li");
+
+            listItems.each(function(idx, li) {
+
+                var id = $(li).data('attachment_id');
+                // console.log(id);
+                ids.push(id);
+            });
+
+            // console.log('hello'+ids);
+            // console.log(ids.length);
+
+            slideshows[gallery_name]=ids;
+
         });
+
+       // console.log(slideshows);
+       // console.log(slideshows.length);
+     //  return false;
 
         $.ajax({
                 url: uploader_obj.ajax_url,
                 method: 'POST',
                 data: {
                     action:'saveimages',
-                    ids: ids
+                    slideshows: slideshows
                 },
                 success: function(response){
                     alert(response);

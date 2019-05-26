@@ -16,6 +16,17 @@
   margin-top: -20px;
 }
 
+#easy_image_gallery .inside #dx-eig-gallery .dx-eig-gallery-row {
+    background: #FFF;
+    margin: 15px 0 15px 0;
+    border: 1px solid #ddd;
+    line-height: 28px;
+}
+
+#easy_image_gallery .inside #dx-eig-gallery .dx-eig-gallery-row .dx-eig-gallery-row-content ul {
+    margin: 0;
+}
+
   .dx-eig-gallery-row-heading {
   padding: 12px;
   border-bottom: 1px solid #ddd;

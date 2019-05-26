@@ -35,16 +35,24 @@ class UltimateSlideshowDisplay {
 
 	/**
 	 * Loads shortcode content
+	 *
+	 * @param int $atts slideshow ID
 	 */
-	public function myslideshow_callback() {
-		$get_attachments = get_option( 'my_slideshow_images', true );
+	public function myslideshow_callback( $atts ) {
+		$slideshow_id = $atts['id'];
+		$get_slideshow = get_option( 'my_slideshow_images', true );
 
-		if ( isset( $get_attachments ) && ! empty( $get_attachments ) ) {
-			$content = '<div class="expanded row"><div class="slider myslide">';
-			foreach ( $get_attachments as $attachemnt ) {
-				$content .= '<div><img src="' . wp_get_attachment_url( $attachemnt ) . '" alt=""></div>';
+		if ( isset( $get_slideshow ) && ! empty( $get_slideshow ) ) {
+
+			$attachemnt_ids = $get_slideshow[ $slideshow_id ];
+
+			if ( ! empty( $attachemnt_ids ) ) {
+				$content = '<div class="expanded row"><div class="slider myslide">';
+				foreach ( $attachemnt_ids as $attachment ) {
+					$content .= '<div><img src="' . wp_get_attachment_url( $attachment ) . '" alt=""></div>';
+				}
+				$content .= '</div></div>';
 			}
-			$content .= '</div></div>';
 		}
 
 		return $content;
