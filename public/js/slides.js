@@ -3,11 +3,11 @@ jQuery(document).ready(function($){
     $('.myslide').slick({
     	lazyLoad: 'ondemand',
     	dots: false,
-        // infinite: true,
-	    speed: 500,
-	    slidesToShow: 1,
-	    // variableWidth: true,
-    	cssEase: 'ease',
+        speed: 500,
+        centerMode: true,
+  		centerPadding: '0px',
+        // variableWidth: true,
+        cssEase: 'ease',
     });
 
 });
