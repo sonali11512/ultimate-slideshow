@@ -6,20 +6,18 @@ var editor_object;
             ed.addButton("slideshow_mce_button", {
                 text: 'myslideshow',
                 icon: false,
-                // title : wdm_button_title,
                 cmd : "generate_shortcode",
-                // image : wdm_button_icon
+                
             });
             //button functionality.
             ed.addCommand("generate_shortcode", function() {
                 editor_object = ed;
                 jQuery('#postdivrich #wp-content-wrap').css('z-index','1');
                 if(!jQuery('#slideshow_list').length) {
-                  //alert('hey');
                     jQuery('body').prepend(slideshow_list);
                 }
                 jQuery('.open_modal').trigger('click');
-                //console.log('hello'+tp);
+                
             });
         },
 

@@ -49,7 +49,7 @@ class UltimateSlideshowDisplay {
 			if ( ! empty( $attachemnt_ids ) ) {
 				$content = '<div class="expanded row"><div class="slider myslide">';
 				foreach ( $attachemnt_ids as $attachment ) {
-					$content .= '<div><img src="' . wp_get_attachment_url( $attachment ) . '" alt=""></div>';
+					$content .= '<div><img data-lazy="' . wp_get_attachment_url( $attachment ) . '" alt=""></div>';
 				}
 				$content .= '</div></div>';
 			}

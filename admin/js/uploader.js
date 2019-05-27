@@ -96,7 +96,11 @@ jQuery(document).ready(function($){
                 ids.push(id);
             });
 
-            slideshows[gallery_name]=ids;
+            if(ids.length !== 0){
+                slideshows[gallery_name]= jQuery.unique(ids);
+
+            }
+
 
         });
        $.ajax({
