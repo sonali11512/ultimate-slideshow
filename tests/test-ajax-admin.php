@@ -43,13 +43,13 @@ class MySlideshowImagesAjaxTest extends WP_Ajax_UnitTestCase {
 
 		// Insert the attachment.
 		$attach_id    = wp_insert_attachment( $attachment, $filename );
-		$_POST['ids'] = array( $attach_id );
+		$_POST['slideshows'] = array( 'gallery_name' => array( $attach_id ) );
 
 		try {
 			$this->_handleAjax( 'saveimages' );
 		} catch ( WPAjaxDieContinueException  $e ) {
-			// $this->assertSame( 'Images Saved Sucessfully', $this->_last_response );
+			$this->assertSame( 'Slideshows Saved Sucessfully', $this->_last_response );
 		}
-		// $this->assertNotEmpty( get_option( 'my_slideshow_images' ) );
+		$this->assertNotEmpty( get_option( 'my_slideshow_images' ) );
 	}
 }

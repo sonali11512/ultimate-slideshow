@@ -160,10 +160,10 @@ class GlobalSettings {
 		if ( isset( $_POST['slideshows'] ) && ! empty( $_POST['slideshows'] ) ) {
 			$slideshow = wp_unslash( $_POST['slideshows'] );
 			update_option( 'my_slideshow_images', $slideshow );
-			esc_html_e( 'Images Saved Sucessfully', 'ultimate-slideshow' );
+			esc_html_e( 'Slideshows Saved Sucessfully', 'ultimate-slideshow' );
 		} else {
 			update_option( 'my_slideshow_images', '' );
-			esc_html_e( 'No Images Found', 'ultimate-slideshow' );
+			esc_html_e( 'No Slideshows Found', 'ultimate-slideshow' );
 		}
 		wp_die();
 	}
