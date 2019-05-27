@@ -11,7 +11,13 @@
  */
 
 /*
-*Includes object of admin main file
+*Includes object of admin global setting file
 */
 require_once 'partials/class-globalsettings.php';
 new Wpslide\GlobalSettings();
+
+/*
+*Includes object of admin shortcode generator file
+*/
+require_once 'partials/class-shortcodegenerator.php';
+new Wpslide\ShortcodeGenerator();

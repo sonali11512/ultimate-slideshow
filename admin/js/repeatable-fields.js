@@ -51,6 +51,12 @@
 
 				$(wrapper).on('click', settings.add, function(event) {
 					event.stopImmediatePropagation();
+					var g_name = $('#gallery_name').val();
+					if(g_name.length < 1){
+						alert("Add name for slideshow");
+						return false;
+
+					}
 
 					var row_template = $($(container).children(settings.template).clone().removeClass(settings.template.replace('.', ''))[0].outerHTML);
 
@@ -113,15 +119,16 @@
 			var gallery_name = $('#gallery_name').val();
 			
 			$(new_row).addClass('gallery_'+ gallery_name);
+			$(new_row).find('.shortcode_name').val('[myslideshow id="'+gallery_name+'"');
 
 			$(new_row).find('div.dx-eig-gallery-row-content').attr('data-gallery-name', gallery_name);
 
 			$(container).attr('data-rf-row-count', row_count);
 
-			var get_last_child = $('.repeat_body .dx-eig-gallery-row').last();
-			var generate_rand_number = Math.floor(Math.random()*(999-100+1)+100);
-			get_last_child.find('.dx-eig-shortcode-show').attr('value', '[easy_image_gallery gallery="'+generate_rand_number+'"]');
-			get_last_child.find('.dx-eig-shortcode').attr('value', generate_rand_number);
+			$('#gallery_name').removeAttr('value');
+
+			
+
 		}
 	}
 })(jQuery);

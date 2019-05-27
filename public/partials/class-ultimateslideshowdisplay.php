@@ -36,10 +36,10 @@ class UltimateSlideshowDisplay {
 	/**
 	 * Loads shortcode content
 	 *
-	 * @param int $atts slideshow ID
+	 * @param int $atts slideshow ID.
 	 */
 	public function myslideshow_callback( $atts ) {
-		$slideshow_id = $atts['id'];
+		$slideshow_id  = $atts['id'];
 		$get_slideshow = get_option( 'my_slideshow_images', true );
 
 		if ( isset( $get_slideshow ) && ! empty( $get_slideshow ) ) {

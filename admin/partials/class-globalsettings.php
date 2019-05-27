@@ -31,8 +31,6 @@ class GlobalSettings {
 		add_action( 'admin_menu', array( $this, 'add_menu' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_callback' ), 10, 1 );
 
-		add_action( 'current_screen', array( $this, 'add_admin_head_hook' ) );
-
 		add_action( 'wp_ajax_saveimages', array( $this, 'saveimages_clbk' ) );
 		add_action( 'wp_ajax_nopriv_saveimages', array( $this, 'saveimages_clbk' ) );
 	}
@@ -46,17 +44,6 @@ class GlobalSettings {
 		wp_enqueue_media();
 		wp_enqueue_script( 'jquery-ui-core' );
 		wp_enqueue_script( 'jquery-ui-sortable' );
-		wp_enqueue_script( 'jquery-ui-dialog' );
-
-		wp_register_script( 'jquery-ui-modal-script', plugins_url( 'js/jquery.modal.min.js', dirname( __FILE__ ) ), array( 'jquery-ui-dialog' ), '1.0.0', false );
-		wp_enqueue_script( 'jquery-ui-modal-script' );
-
-		wp_register_style( 'wdm-jquery-ui-style', plugins_url( 'css/jquery-ui.min.css', dirname( __FILE__ ) ), '', '1.0.0' );
-		wp_enqueue_style( 'wdm-jquery-ui-style' );
-
-		wp_register_style( 'wdm-jquery-ui-modal-style', plugins_url( 'css/jquery.modal.min.css', dirname( __FILE__ ) ), '', '1.0.0' );
-		wp_enqueue_style( 'wdm-jquery-ui-modal-style' );
-
 		wp_register_script( 'repeatable', plugins_url( 'js/repeatable-fields.js', dirname( __FILE__ ) ), array( 'jquery', 'jquery-ui-core', 'jquery-ui-sortable' ), array( 'jquery', 'jquery-ui-core', 'jquery-ui-sortable' ), '1.0.0', false );
 		wp_enqueue_script( 'repeatable' );
 
@@ -67,65 +54,6 @@ class GlobalSettings {
 		wp_enqueue_style( 'slideshow' );
 	}
 
-	/**
-	 * Load hooks for tinymce
-	 */
-	public function add_admin_head_hook() {
-
-		global $current_screen;
-		add_action( 'admin_head', array( $this, 'wdm_localize_admin_script' ) );
-		add_filter( 'mce_external_plugins', array( $this, 'enqueue_sortcode_generator_script' ) );
-		add_filter( 'mce_buttons', array( $this, 'register_shortcode_generator' ) );
-
-	}
-
-	/**
-	 * Modal for slideshow selection
-	 */
-	public function wdm_localize_admin_script() {
-		$slideshow_title = __( 'Select a slideshow to add shortcode', 'ultimate-slideshow' );
-		$slideshow_dialog = '<a class="open_modal" href="#slideshow_list" rel="modal:open" style="display:none">Open Modal</a><div id="slideshow_list" style="display:none" title="' . $slideshow_title . '">';
-		$get_slideshows = get_option( 'my_slideshow_images' );
-		$slideshow_dialog .= '<div class="slideshow_title"><h3>Slideshow Shortcode Generator</h3></div>';
-		$slideshow_dialog .= '<div class="my_slideshow"><label for="select_slideshow">' . __( 'Select a slideshow to insert.', 'ultimate-slideshow' ) . '</label><br><br><select class="select_slideshow">';
-		foreach ( $get_slideshows as $key => $value ) {
-			$slideshow_dialog .= '<option value="' . $key . '">' . $key . '</option>';
-		}
-		$slideshow_dialog .= '</select><br><br>';
-		$slideshow_dialog .= '<input type="button" class="wdm_insert_slideshow button button-primary button-large" value="' . __( 'Insert', 'ultimate-slideshow' ) . '"></div>';
-		?>
-		<!-- TinyMCE Shortcode Plugin -->
-		<script type='text/javascript'>
-			var slideshow_list = '<?php echo $slideshow_dialog; ?>';
-			
-		</script>
-		<!-- TinyMCE Shortcode Plugin -->
-		<?php
-	}
-
-	/**
-	 * Register shortcode js
-	 *
-	 * @param array $plugin_array js id.
-	 */
-	public function enqueue_sortcode_generator_script( $plugin_array ) {
-		// enqueue TinyMCE plugin script with its ID.
-		$plugin_array['slideshow_mce_button'] = plugins_url( 'js/slideshow-shortcode-generator.js', dirname( __FILE__ ) );
-
-		return $plugin_array;
-	}
-
-	/**
-	 * Register button
-	 *
-	 * @param array $buttons array of buttons.
-	 */
-	public function register_shortcode_generator( $buttons ) {
-		// register buttons with their id.
-		array_push( $buttons, 'slideshow_mce_button' );
-		// echo 'hellloo';print_R($buttons);die();
-		return $buttons;
-	}
 	/**
 	 * This adds menu in navigation bar.
 	 */
@@ -144,8 +72,6 @@ class GlobalSettings {
 	 */
 	public function globalsettings_callback() {
 		?>
-		
-
 		<div id="dx-eig-gallery">
 			<div class="repeat">
 				<div class="repeat_container">
@@ -157,13 +83,13 @@ class GlobalSettings {
 						<div class="template dx-eig-gallery-row row">
 							<div class="dx-eig-gallery-row-heading move">
 								<input type="text" hidden="" class="row_count" data-count="{{row-count-placeholder}}">
-								<input type="text" hidden="" id="attachment_ids_{{row-count-placeholder}}" name="image_gallery[{{row-count-placeholder}}][DATA]" value="">
-								<span class="name">My Slideshow</span>
+								<input type="text" hidden="" id="attachment_ids" name="image_gallery" value="">
+								<input class="shortcode_name" type="text" readonly="" value="">
 								<input type="button" class="button wp_slide_image_upload" data-count="{{row-count-placeholder}}" name="<?php esc_html_e( 'Add Images', 'ultimate-slideshow' ); ?>" value="<?php esc_html_e( 'Add Images', 'ultimate-slideshow' ); ?>">
-								
-								<div class="dx-eig-clear"></div>
+								<span class="remove"><img src="<?php echo plugins_url( 'fonts/close.png', dirname( __FILE__ ) ); ?>"></span>
+									<div class="dx-eig-clear"></div>
 							</div>
-							<div class="dx-eig-gallery-row-content" id="gallery-{{row-count-placeholder}}">
+							<div class="dx-eig-gallery-row-content" data-gallery-name="" >
 								<p class="no-images-message"><?php esc_html_e( 'Please add images in this slideshow', 'ultimate-slideshow' ); ?></p>
 							</div>
 						</div><!--end of template-->
@@ -173,15 +99,24 @@ class GlobalSettings {
 		if ( isset( $get_slideshows ) && ! empty( $get_slideshows ) ) {
 			foreach ( $get_slideshows as $key => $value ) {
 				?>
-									<div class="dx-eig-gallery-row row" >
-										<div class="dx-eig-gallery-row-content"  id="gallery-{{row-count-placeholder}}">
+					<div class="dx-eig-gallery-row row" >
+						<div class="dx-eig-gallery-row-heading move">
+							<input type="text" hidden="" class="row_count" data-count="{{row-count-placeholder}}">
+							<input type="text" hidden="" id="attachment_ids" name="image_gallery" value="">
+							<input class="shortcode_name" type="text" readonly="" value="[myslideshow id='<?php echo $key; ?>']">
+							<input type="button" class="button wp_slide_image_upload" name="<?php esc_html_e( 'Add Images', 'ultimate-slideshow' ); ?>" value="<?php esc_html_e( 'Add Images', 'ultimate-slideshow' ); ?>">
+							<span class="remove"><img src="<?php echo plugins_url( 'fonts/close.png', dirname( __FILE__ ) ); ?>"></span>
+							<div class="dx-eig-clear"></div>
+						</div>
+						<div class="dx-eig-gallery-row-content" data-gallery-name="<?php echo $key; ?>">
 
 						<?php
 						if ( ! empty( $value ) ) {
+							$get_attachments = $value;
 							?>
-										<p class="no-images-message" style="display: none;"><?php esc_html_e( 'Please add images in this gallery', 'ultimate-slideshow' ); ?></p>
-											<ul id='sortable1' class="gallery_images">
-												<div class="dx-eig-images sortable ui-sortable">
+								<p class="no-images-message" style="display: none;"><?php esc_html_e( 'Please add images in this gallery', 'ultimate-slideshow' ); ?></p>
+								<ul id='sortable1' class="gallery_images">
+										<div class="dx-eig-images sortable ui-sortable">
 								<?php
 								foreach ( $get_attachments as $attachemnt ) {
 									$html  = '<li class="image attachment details ui-state-highlight" data-attachment_id="' . $attachemnt . '" data-gallery="' . $gallery_count . '">';
@@ -193,44 +128,38 @@ class GlobalSettings {
 									echo $html;
 								}
 								?>
-												</div>
-												<div class="dx-eig-clear"></div>
-											</ul>
+											</div>
+											<div class="dx-eig-clear"></div>
+								</ul>
 							<?php
 						} //end of else.
 						?>
-										</div><!-- dx-eig-gallery-row-content -->
-									</div><!-- dx-eig-gallery-row -->
+							</div><!-- dx-eig-gallery-row-content -->
+						</div><!-- dx-eig-gallery-row -->
 				<?php
 			}
 		}
 		?>
-
-							</div>
-							<div class="buttons">
-							<input class="button button-primary button-large save_btn" name="Save Changes" value="Save Changes">
-							</div>
-						</div>
 					</div>
+						<br/>
+						<div class="buttons">
+								<input class="button button-primary button-large save_btn" name="Save Changes" value="Save Changes">
+						</div>
 				</div>
 			</div>
 		</div>
-
-		
-
-
-		<?php
+	</div>
+</div>
+<?php
 	}
 
 	/**
-	 * Ajax call to save images
-	 */
+	* Ajax call to save images
+ 	*/
 	public function saveimages_clbk() {
-		die();
-
-		if ( isset( $_POST['ids'] ) && ! empty( $_POST['ids'] ) ) {
-			$ids = wp_unslash( $_POST['ids'] );
-			update_option( 'my_slideshow_images', array_unique( $ids ) );
+		if ( isset( $_POST['slideshows'] ) && ! empty( $_POST['slideshows'] ) ) {
+			$slideshow = wp_unslash( $_POST['slideshows'] );
+			update_option( 'my_slideshow_images', $slideshow );
 			esc_html_e( 'Images Saved Sucessfully', 'ultimate-slideshow' );
 		} else {
 			update_option( 'my_slideshow_images', '' );
