@@ -91,9 +91,10 @@ class PluginPublicTest extends WP_UnitTestCase {
 	/**
 	 * Test shortcode atts.
 	 */
-	public function test_noatts() {
-		do_shortcode( '[myslideshow /]' );
-		$this->assertEmpty( '', $this->atts );
+	public function test_one_att() {
+		do_shortcode( '[myslideshow foo="asdf" /]' );
+		$this->assertNotEmpty( array( 'foo' => 'asdf' ), $this->atts );
+		$this->assertSame( array( 'foo' => 'asdf' ), $this->atts );
 		$this->assertSame( 'myslideshow', $this->tagname );
 	}
 

@@ -150,12 +150,12 @@ class GlobalSettings {
 		</div>
 	</div>
 </div>
-<?php
+		<?php
 	}
 
-	/**
-	* Ajax call to save images
- 	*/
+		/**
+		 * Ajax call to save images
+		 */
 	public function saveimages_clbk() {
 		if ( isset( $_POST['slideshows'] ) && ! empty( $_POST['slideshows'] ) ) {
 			$slideshow = wp_unslash( $_POST['slideshows'] );
