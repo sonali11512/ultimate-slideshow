@@ -18,8 +18,9 @@ This is my submission for Plugin Assignment(2-a)
 ###  Admin-Side:
 
     Creates an admin-side page **Ultimate Slideshow**. This page provides an interface to create add/remove images to the slideshow.
-    1. Add/remove images for the slideshow.
-    2. Save the images.
+    1. Add/remove slideshows.
+    2. Add/remove images for the slideshows.
+    2. Save the slideshows.
 
 ### Front-end:
 
@@ -28,7 +29,8 @@ This is my submission for Plugin Assignment(2-a)
 
 ### Libraries Used:
 1. [jQuery Carousel Plugin slick](https://www.jqueryscript.net/slider/Fully-Responsive-Flexible-jQuery-Carousel-Plugin-slick.html).
-2. [jQuery Sortable](http://jqueryui.com/sortable/)
+2. [Slick Lazy Load](https://www.solodev.com/blog/web-design/lazy-loading-images-using-slick-slider.stml)
+3. [jQuery Sortable](http://jqueryui.com/sortable/)
 
 ### Installation:
 
@@ -38,6 +40,9 @@ This is my submission for Plugin Assignment(2-a)
 
 
 ### Changelog
+
+#### 1.0.1 ####
+* Enhancement
 
 #### 1.0.0 ####
 * First Version

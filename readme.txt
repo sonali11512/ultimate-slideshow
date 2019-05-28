@@ -12,10 +12,11 @@ Easy to setup.
 
 	
  = Free VERSION (Core) Features =
-    1. Admin can upload and sort images for displaying in slideshow. 
+    1. Admin can create various slideshows and upload images for displaying in the slideshow. 
+    2. Admin/Author/Editor can click on "myslideshow" button displayed on the editor to enter the shortcode.
 	
  = Display Features =
-    1. Page which has shotcode "[myslideshow]" displays the images in the slider.
+    1. Page which has shortcode "[myslideshow id='']" displays the images in the slider.
     
 == Installation ==
 
@@ -37,5 +38,9 @@ This page is responsible for displaying slideshow of images set via admin.
 
 == Screenshots ==
 
+= 1.0.1 =
+* Enhancement - Added feature to create multiple slideshows.
+                Added shortcode generator button in the visual editor.
+
 = 1.0.0 =
-Beta Launch
+Alpha Launch
