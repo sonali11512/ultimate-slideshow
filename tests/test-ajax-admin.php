@@ -42,7 +42,7 @@ class MySlideshowImagesAjaxTest extends WP_Ajax_UnitTestCase {
 		);
 
 		// Insert the attachment.
-		$attach_id    = wp_insert_attachment( $attachment, $filename );
+		$attach_id           = wp_insert_attachment( $attachment, $filename );
 		$_POST['slideshows'] = array( 'gallery_name' => array( $attach_id ) );
 
 		try {
