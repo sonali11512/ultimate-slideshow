@@ -7,7 +7,7 @@ jQuery(document).ready(function($){
         centerMode: true,
   		centerPadding: '0px',
         // variableWidth: true,
-        cssEase: 'ease',
+        cssEase: 'linear',
     });
 
 });
