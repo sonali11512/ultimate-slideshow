@@ -11,7 +11,7 @@
  * Plugin Name: Ultimate Slideshow
  * Plugin URI:  https://github.com/sonali11512/ultimate-slideshow
  * Description: This plugin displays the slideshow in frontend.
- * Version:     1.0.0
+ * Version:     1.0.1
  * Author:      sonali agrawal
  * Text Domain: ultimate-slideshow
  * License:     GPL-2.0+
